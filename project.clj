@@ -9,13 +9,18 @@
   :dependencies [[org.clojure/clojure "1.7.0"]
                  [org.clojure/clojurescript "1.7.170"]
                  [org.clojure/core.async "0.2.374" :exclusions [org.clojure/tools.reader]]
+                 [org.clojure/tools.analyzer.jvm "0.6.9"]
+                 [org.clojure/tools.cli "0.3.3"]
                  [reagent "0.6.0-alpha"]
+                 [reagent-forms "0.5.21"]
                  [cljsjs/d3 "3.5.7-1"]]
 
   :plugins [[lein-figwheel "0.5.0-6"]
             [lein-cljsbuild "1.1.2" :exclusions [[org.clojure/clojure]]]]
 
-  :source-paths ["src"]
+  :main forge.main
+
+  :source-paths ["src/cmd"]
 
   :clean-targets ^{:protect false} ["resources/public/js/compiled" "target"]
 

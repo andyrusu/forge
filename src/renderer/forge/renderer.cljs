@@ -1,4 +1,11 @@
 (ns forge.renderer
-  (:require [forge.ui.window :as w]))
+  (:require [forge.ui.window :as w]
+            [common.cards :as cards]))
 
-(w/init-gui)
+(swap! w/window assoc :cards [(cards/make-value-card 4)])
+
+(defn main
+  []
+  (w/init-gui))
+
+(main)

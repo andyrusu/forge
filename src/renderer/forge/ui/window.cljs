@@ -3,11 +3,11 @@
            goog.events.EventType)
   (:require [reagent.core :as r]
             [goog.dom :as d]
-            [goog.events :as e]))
+            [goog.events :as e]
+            [common.cards :as c]))
 
 (def window (r/atom {:height (d/getDocumentHeight)}))
 (def vsm (ViewportSizeMonitor.))
-(e/listen vsm (.-RESIZE EventType) (fn [e] (swap! window #(assoc % :height (.-height (.getSize vsm))))))
 
 (defn search-input
   []
@@ -18,7 +18,12 @@
 (defn cards-panel
   []
   [:div.row
-    [:div.col-md-12 (search-input)]])
+    [:div.col-md-12
+      (search-input)
+      [:h3 "You're program:"]
+      (if (and (contains? @window :cards) (not (empty? (:cards @window))))
+        [:svg.show-cards {:width "100%" :height (:height @window)}
+          (map c/render-card (:cards @window))])]])
 
 (defn panels
   []
@@ -29,5 +34,7 @@
 
 (defn init-gui
   []
+  (e/listen vsm (.-RESIZE EventType) (fn [e]
+                                       (swap! window #(assoc % :height (.-height (.getSize vsm))))))
   (r/render-component [panels]
-    (.getElementById js/document "window"))))
+    (.getElementById js/document "window")))

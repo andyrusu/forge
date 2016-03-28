@@ -9,7 +9,7 @@
   :dependencies [[org.clojure/clojure "1.7.0"]
                  [org.clojure/clojurescript "1.7.170"]
                  [org.clojure/core.async "0.2.374" :exclusions [org.clojure/tools.reader]]
-                 [org.clojure/tools.analyzer.jvm "0.6.9"]
+                 [danlentz/clj-uuid "0.1.6"]
                  [org.clojure/tools.cli "0.3.3"]
                  [reagent "0.6.0-alpha"]
                  [reagent-forms "0.5.21"]
@@ -52,13 +52,13 @@
                ;; production. You can build this with:
                ;; lein cljsbuild once main-min renderer-min
                {:id "main-min"
-                :source-paths ["src/main"]
+                :source-paths ["src/main" "src/common"]
                 :compiler {:output-to "resources/public/js/compiled/main.js"
                            :main forge.main
                            :optimizations :advanced
                            :pretty-print false}}
                {:id "renderer-min"
-                :source-paths ["src/renderer"]
+                :source-paths ["src/renderer" "src/common"]
                 :compiler {:output-to "resources/public/js/compiled/renderer.js"
                            :main forge.renderer
                            :optimizations :advanced

@@ -2,6 +2,7 @@
   (:require [forge.window.main :as mw]
             [common.electron :refer [get-module]]))
 
+(enable-console-print!)
 (def app (get-module :app))
 
 (.on app "window-all-closed" (fn []
@@ -10,4 +11,4 @@
 
 (.on app "ready" mw/init)
 
-(set! *main-cli-fn* (fn [] (.log js/console "Hello from main process.")))
+(set! *main-cli-fn* (fn [] (.log js/console "Initialized the application.")))

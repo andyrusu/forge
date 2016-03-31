@@ -3,33 +3,35 @@
             [goog.style :as style]
             [goog.dom :as dom]))
 
-(def svg-tag (dom/getElementByClass "show-cards"))
-
 (defprotocol ICardRenderer
   "Protocol to attach to cards"
-  (render-card [this])
+  (render-card [this width])
   (render-result [this]))
 
 (defrecord ValueCard
-  [id type value]
+  [id type value width height]
   ICardRenderer
-  (render-card [this]
-    (let [svg-size (style/getSize svg-tag)
-          middle (/ (:width svg-size) 2)
-          xpos (- middle 150)]
+  (render-card [this width]
+    (let [middle   (/ width 2)
+          x-start  (- middle 150)
+          x-end    (+ middle 150)
+          c-width  (:width this)
+          c-height (:height this)]
       (list
-        [:rect {:width 300 :height 100
-                :x xpos :y 0
+        [:rect {:width c-width :height c-height
+                :x x-start :y 0
                 :style {:fill "white"
                         :stroke-width 3
                         :stroke "rgb(0,0,0)"}}]
-        [:text {:x 315 :y 20
+        [:text {:x (+ x-start 15) :y 20
                 :style {:fill "black"}} "With:"]
-        [:line {:x1 310  :y1 30
-                :x2 590  :y2 30
+        [:line {:x1 (+ x-start 10)  :y1 30
+                :x2 (- x-end 10)  :y2 30
                 :style {:stroke-width 2 :stroke "black"}}]
-        [:text {:x 10 :y 10
-                :style {:fill "red"}} (:value this)])))
+        [:foreignObject {:x (+ x-start 10) :y 40}
+          [:input {:id (:id this)
+                   :type "text"
+                   :value (:value this)}]])))
   (render-result [this]
     (.log js/console this)))
 
@@ -38,4 +40,4 @@
                                 (integer? val) :integer
                                 (string? val) :string
                                 :else :ref)))
-  ([val type] (ValueCard. "value" type val)))
+  ([val type] (ValueCard. (genid "value") type val 300 100)))

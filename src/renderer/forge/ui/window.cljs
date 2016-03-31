@@ -2,11 +2,11 @@
   (:import goog.dom.ViewportSizeMonitor
            goog.events.EventType)
   (:require [reagent.core :as r]
-            [goog.dom :as d]
             [goog.events :as e]
+            [common.electron :as ele]
             [common.cards :as c]))
 
-(def window (r/atom {:height (d/getDocumentHeight)}))
+(def window (r/atom {}))
 (def vsm (ViewportSizeMonitor.))
 
 (defn search-input
@@ -23,7 +23,7 @@
       [:h3 "You're program:"]
       (if (and (contains? @window :cards) (not (empty? (:cards @window))))
         [:svg.show-cards {:width "100%" :height (:height @window)}
-          (map c/render-card (:cards @window))])]])
+          (map #(c/render-card % (/ (:width @window) 2)) (:cards @window))])]])
 
 (defn panels
   []
@@ -32,9 +32,24 @@
       [:div.col-md-6.with-border {:style {:height (:height @window)}} (cards-panel)]
       [:div.col-md-6.with-border {:style {:height (:height @window)}} "result"]]])
 
+(defn set-size
+  [win width height]
+  (-> win
+    (assoc :width width)
+    (assoc :height height)))
+
+(defn init-window
+  []
+  (let [ipc (ele/get-module "ipcRenderer")
+        size (.sendSync ipc "get-window-size")]
+    (swap! window set-size (aget size 0) (aget size 1))))
+
 (defn init-gui
   []
-  (e/listen vsm (.-RESIZE EventType) (fn [e]
-                                       (swap! window #(assoc % :height (.-height (.getSize vsm))))))
+  (init-window)
+  (e/listen vsm
+    (.-RESIZE EventType)
+    #(swap! window set-size (.-width (.getSize vsm)) (.-height (.getSize vsm))))
+
   (r/render-component [panels]
     (.getElementById js/document "window")))

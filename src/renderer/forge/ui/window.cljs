@@ -22,8 +22,11 @@
       (search-input)
       [:h3 "You're program:"]
       (if (and (contains? @window :cards) (not (empty? (:cards @window))))
-        [:svg.show-cards {:width "100%" :height (:height @window)}
-          (map #(c/render-card % (/ (:width @window) 2)) (:cards @window))])]])
+        (let [h (:height @window)
+              w (:width @window)
+              c (:cards @window)]
+          [:svg.show-cards {:width "100%" :height h}
+            (map #(c/render-card % (/ w 2)) c)]))]])
 
 (defn panels
   []

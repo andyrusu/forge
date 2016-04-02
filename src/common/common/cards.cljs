@@ -5,13 +5,14 @@
 
 (defprotocol ICardRenderer
   "Protocol to attach to cards"
-  (render-card [this width])
+  (render-card [this width on-change-fn])
+  (card-change-handler [this win])
   (render-result [this]))
 
 (defrecord ValueCard
   [id type value width height]
   ICardRenderer
-  (render-card [this width]
+  (render-card [this width on-change-fn]
     (let [middle   (/ width 2)
           x-start  (- middle 150)
           x-end    (+ middle 150)
@@ -31,7 +32,8 @@
         [:foreignObject {:x (+ x-start 10) :y 40}
           [:input {:id (:id this)
                    :type "text"
-                   :value (:value this)}]])))
+                   :defaultValue (:value this)
+                   :onChange on-change-fn}]])))
   (render-result [this]
     (.log js/console this)))
 

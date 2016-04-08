@@ -28,7 +28,7 @@
             (map #(c/render-card % (/ w 2)) c)]))]])
 
 (defn panels
-  [window]
+  []
   [:div.container-fluid
     [:div.row
       [:div.col-md-6.with-border {:style {:height (:height @window)}} (cards-panel window)]
@@ -53,5 +53,5 @@
     (.-RESIZE EventType)
     #(swap! window set-size (.-width (.getSize vsm)) (.-height (.getSize vsm))))
 
-  (r/render [(panels window)]
+  (r/render [panels]
     (.getElementById js/document "window")))

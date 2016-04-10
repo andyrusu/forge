@@ -6,11 +6,10 @@
 (defprotocol ICardRenderer
   "Protocol to attach to cards"
   (render-card [this width on-change-fn])
-  (card-change-handler [this win])
   (render-result [this]))
 
 (defrecord ValueCard
-  [id type value width height]
+  [id type value]
   ICardRenderer
   (render-card [this width on-change-fn]
     (let [middle   (/ width 2)

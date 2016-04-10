@@ -24,8 +24,8 @@
         (let [h (:height @window)
               w (:width @window)
               c (:cards @window)]
-          [:svg.show-cards {:width "100%" :height h}
-            (map #(c/render-card % (/ w 2)) c)]))]])
+          [:svg.show-cards {:width "100%" :height h}]))]])
+            ;(map #(c/render-card % (/ w 2)) c)
 
 (defn panels
   []
@@ -52,6 +52,5 @@
   (e/listen vsm
     (.-RESIZE EventType)
     #(swap! window set-size (.-width (.getSize vsm)) (.-height (.getSize vsm))))
-
   (r/render [panels]
     (.getElementById js/document "window")))

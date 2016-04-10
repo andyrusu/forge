@@ -15,7 +15,8 @@
                  [ankha "0.1.4"]]
 
   :plugins [[lein-figwheel "0.5.0-6"]
-            [lein-cljsbuild "1.1.2" :exclusions [[org.clojure/clojure]]]]
+            [lein-cljsbuild "1.1.2" :exclusions [[org.clojure/clojure]]]
+            [lein-doo "0.1.6"]]
 
   :main forge.main
 
@@ -24,12 +25,22 @@
   :clean-targets ^{:protect false} ["resources/public/js/compiled" "target"]
 
   :cljsbuild {:builds
-              [{:id "main-dev"
+              [{:id "main-test"
+                :source-paths ["src/main" "src/common" "test/main" "text/common"]
+                :compiler {:output-to "resource/public/js/tests/main.test.js"
+                           :output-dir "resources/public/js/tests/out/main"
+                           :main forge.main
+                           :optimizations :none
+                           :target :nodejs}}
+               {:id "renderer-test"
+                :source-paths ["src/renderer" "src/common" "test/renderer" "text/common"]
+                :compiler {:output-to "resource/public/js/tests/main.test.js"
+                           :output-dir "resources/public/js/tests/out/renderer"
+                           :main forge.renderer
+                           :optimizations :none}}
+               {:id "main-dev"
                 :source-paths ["src/main" "src/common"]
-
-                ;; If no code is to be run, set :figwheel true for continued automagical reloading
                 :figwheel true
-
                 :compiler {:main forge.main
                            :asset-path "js/compiled/out/main"
                            :output-to "resources/public/js/compiled/main.js"
@@ -38,10 +49,7 @@
                            :target :nodejs}}
                {:id "renderer-dev"
                  :source-paths ["src/renderer" "src/common"]
-
-                 ;; If no code is to be run, set :figwheel true for continued automagical reloading
                  :figwheel true
-
                  :compiler {:main forge.renderer
                             :asset-path "js/compiled/out/renderer"
                             :output-to "resources/public/js/compiled/renderer.js"

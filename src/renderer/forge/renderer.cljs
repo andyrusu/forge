@@ -6,5 +6,3 @@
 (defonce app-state (atom {:cards [(cards/make-value-card 4)]
                           :window {:width 1024
                                    :height 768}}))
-
-(def )

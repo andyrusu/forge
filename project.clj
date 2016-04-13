@@ -12,28 +12,14 @@
                  [racehub/om-bootstrap "0.6.1"]
                  [ankha "0.1.4"]]
   :plugins [[lein-figwheel "0.5.0-6"]
-            [lein-cljsbuild "1.1.2" :exclusions [[org.clojure/clojure]]]
-            [lein-doo "0.1.6"]]
+            [lein-cljsbuild "1.1.2" :exclusions [[org.clojure/clojure]]]]
   :main forge.main
   :source-paths ["src/cmd"]
   :clean-targets ^{:protect false} ["resources/public/js/compiled" "target"]
   :cljsbuild {:builds
-              [{:id "main-test"
-                :source-paths ["src/main" "src/common" "test/main" "test/common"]
-                :compiler {:output-to "resources/public/js/tests/main.test.js"
-                           :output-dir "resources/public/js/tests/out/main"
-                           :main forge.test-runner
-                           :optimizations :none
-                           :target :nodejs}}
-               {:id "renderer-test"
-                :source-paths ["src/renderer" "src/common" "test/renderer" "text/common"]
-                :compiler {:output-to "resources/public/js/tests/main.test.js"
-                           :output-dir "resources/public/js/tests/out/renderer"
-                           :main forge.renderer
-                           :optimizations :none}}
-               {:id "main-dev"
+              [{:id "main-dev"
                 :source-paths ["src/main" "src/common"]
-                :figwheel true
+                ;:figwheel true
                 :compiler {:main forge.main
                            :asset-path "js/compiled/out/main"
                            :output-to "resources/public/js/compiled/main.js"

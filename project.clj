@@ -19,12 +19,13 @@
   :cljsbuild {:builds
               [{:id "main-dev"
                 :source-paths ["src/main" "src/common"]
-                ;:figwheel true
+                :figwheel true
                 :compiler {:main forge.main
                            :asset-path "js/compiled/out/main"
                            :output-to "resources/public/js/compiled/main.js"
                            :output-dir "resources/public/js/compiled/out/main"
                            :source-map-timestamp true
+                           :pretty-print true
                            :target :nodejs}}
                {:id "renderer-dev"
                  :source-paths ["src/renderer" "src/common"]
@@ -33,6 +34,7 @@
                             :asset-path "js/compiled/out/renderer"
                             :output-to "resources/public/js/compiled/renderer.js"
                             :output-dir "resources/public/js/compiled/out/renderer"
+                            :pretty-print true
                             :source-map-timestamp true}}
                ;; This next build is an compressed minified build for
                ;; production. You can build this with:
@@ -41,13 +43,13 @@
                 :source-paths ["src/main" "src/common"]
                 :compiler {:output-to "resources/public/js/compiled/main.js"
                            :main forge.main
-                           :optimizations :advanced
+                           :optimizations :simple
                            :pretty-print false}}
                {:id "renderer-min"
                 :source-paths ["src/renderer" "src/common"]
                 :compiler {:output-to "resources/public/js/compiled/renderer.js"
                            :main forge.renderer
-                           :optimizations :advanced
+                           :optimizations :simple
                            :pretty-print false}}]}
   :figwheel {;; :http-server-root "public" ;; default and assumes "resources"
              ;; :server-port 3449 ;; default

@@ -41,4 +41,4 @@
                                 (integer? val) :integer
                                 (string? val) :string
                                 :else :ref)))
-  ([val type] (ValueCard. (genid "value") type val 300 100)))
+  ([val type] (ValueCard. (genid "value") type val)))

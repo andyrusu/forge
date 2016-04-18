@@ -1,12 +1,13 @@
 (ns forge.renderer
-  (:require [forge.ui.window :as w]
-            [common.cards :as cards]
-            [reagent.core :as r]))
+  (:require [om.core :as om]
+            [forge.ui.window :as w]
+            [common.cards :as cards]))
 
-(def window (r/atom {:cards [(cards/make-value-card 4)]}))
+(defonce app-state (atom {:cards [(cards/make-value-card 4)]
+                          :window {:width 1024
+                                   :height 768}}))
 
-(defn main
-  []
-  (w/init-gui window))
-
-(main)
+(om/root
+  w/panels
+  app-state
+  {:target (. js/document (getElementById "window"))})

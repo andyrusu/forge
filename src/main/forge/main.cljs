@@ -1,6 +1,7 @@
 (ns forge.main
   (:require [forge.window.main :as mw]
-            [common.electron :refer [get-module]]))
+            [common.electron :refer [get-module]]
+            [forge.settings :as s]))
 
 (enable-console-print!)
 (def app (get-module :app))

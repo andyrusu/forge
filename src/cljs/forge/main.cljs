@@ -1,7 +1,7 @@
-(ns forge.renderer
+(ns forge.main
   (:require [om.core :as om]
             [forge.ui.window :as w]
-            [common.cards :as cards]))
+            [froge.cards :as cards]))
 
 (defonce app-state (atom {:cards [(cards/make-value-card 4)]
                           :window {:width 1024

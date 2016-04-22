@@ -1,5 +1,5 @@
-(ns common.cards
-  (:require [common.helpers :refer [genid]]
+(ns forge.cards
+  (:require [forge.helpers :refer [genid]]
             [goog.style :as style]
             [goog.dom :as dom]))
 

@@ -14,37 +14,17 @@
   :plugins [[lein-figwheel "0.5.0-6"]
             [lein-cljsbuild "1.1.2" :exclusions [[org.clojure/clojure]]]]
   :main forge.main
-  :source-paths ["src/cmd"]
+  :source-paths ["src/clj"]
   :clean-targets ^{:protect false} ["resources/public/js/compiled" "target"]
   :cljsbuild {:builds
-              [{:id "main-dev"
-                :source-paths ["src/main" "src/common"]
-                :figwheel true
-                :compiler {:main forge.main
-                           :asset-path "js/compiled/out/main"
-                           :output-to "resources/public/js/compiled/main.js"
-                           :output-dir "resources/public/js/compiled/out/main"
-                           :source-map-timestamp true
+              [{:id "renderer-dev"
+                :source-paths ["src/cljs"]
+                :compiler {:main forge.renderer
+                           :asset-path "js/compiled/out/renderer"
+                           :output-to "resources/public/js/compiled/renderer.js"
+                           :output-dir "resources/public/js/compiled/out/renderer"
                            :pretty-print true
-                           :target :nodejs}}
-               {:id "renderer-dev"
-                 :source-paths ["src/renderer" "src/common"]
-                 :figwheel true
-                 :compiler {:main forge.renderer
-                            :asset-path "js/compiled/out/renderer"
-                            :output-to "resources/public/js/compiled/renderer.js"
-                            :output-dir "resources/public/js/compiled/out/renderer"
-                            :pretty-print true
-                            :source-map-timestamp true}}
-               ;; This next build is an compressed minified build for
-               ;; production. You can build this with:
-               ;; lein cljsbuild once main-min renderer-min
-               {:id "main-min"
-                :source-paths ["src/main" "src/common"]
-                :compiler {:output-to "resources/public/js/compiled/main.js"
-                           :main forge.main
-                           :optimizations :simple
-                           :pretty-print false}}
+                           :source-map-timestamp true}}
                {:id "renderer-min"
                 :source-paths ["src/renderer" "src/common"]
                 :compiler {:output-to "resources/public/js/compiled/renderer.js"

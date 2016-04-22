@@ -17,17 +17,25 @@
   :source-paths ["src/clj"]
   :clean-targets ^{:protect false} ["resources/public/js/compiled" "target"]
   :cljsbuild {:builds
-              [{:id "renderer-dev"
+              [{:id "renderer-test"
+                :source-paths ["src/cljs" "test/cljs"]
+                :compiler {:main forge.renderer
+                           :asset-path "js/compiled/out/tests"
+                           :output-to "resources/public/js/compiled/tests.js"
+                           :output-dir "resources/public/js/compiled/out/tests"
+                           :pretty-print true
+                           :source-map-timestamp true}}
+               {:id "renderer-dev"
                 :source-paths ["src/cljs"]
                 :compiler {:main forge.renderer
-                           :asset-path "js/compiled/out/renderer"
-                           :output-to "resources/public/js/compiled/renderer.js"
-                           :output-dir "resources/public/js/compiled/out/renderer"
+                           :asset-path "js/compiled/out/app"
+                           :output-to "resources/public/js/compiled/app.js"
+                           :output-dir "resources/public/js/compiled/out/app"
                            :pretty-print true
                            :source-map-timestamp true}}
                {:id "renderer-min"
-                :source-paths ["src/renderer"]
-                :compiler {:output-to "resources/public/js/compiled/renderer.js"
+                :source-paths ["src/cljs"]
+                :compiler {:output-to "resources/public/js/compiled/app.min.js"
                            :main forge.renderer
                            :optimizations :simple
                            :pretty-print false}}]}

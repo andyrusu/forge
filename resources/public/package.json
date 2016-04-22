@@ -1,5 +1,9 @@
 {
   "name": "forge",
   "version": "dev",
-  "main": "index.html"
+  "main": "index.html",
+  "window": {
+    "id": "main",
+    "title": "Forge Main Window"
+  }
 }

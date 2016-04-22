@@ -12,31 +12,34 @@
                  [racehub/om-bootstrap "0.6.1"]
                  [ankha "0.1.4"]]
   :plugins [[lein-figwheel "0.5.0-6"]
+            [lein-doo "0.1.6"]
             [lein-cljsbuild "1.1.2" :exclusions [[org.clojure/clojure]]]]
   :main forge.main
   :source-paths ["src/clj"]
   :clean-targets ^{:protect false} ["resources/public/js/compiled" "target"]
   :cljsbuild {:builds
-              [{:id "renderer-test"
+              [{:id "app-test"
                 :source-paths ["src/cljs" "test/cljs"]
-                :compiler {:main forge.renderer
+                :compiler {:main forge.runner
                            :asset-path "js/compiled/out/tests"
                            :output-to "resources/public/js/compiled/tests.js"
                            :output-dir "resources/public/js/compiled/out/tests"
+                           :target :nodejs
                            :pretty-print true
                            :source-map-timestamp true}}
-               {:id "renderer-dev"
+               {:id "app-dev"
                 :source-paths ["src/cljs"]
-                :compiler {:main forge.renderer
+                :figwheel true
+                :compiler {:main forge.main
                            :asset-path "js/compiled/out/app"
                            :output-to "resources/public/js/compiled/app.js"
                            :output-dir "resources/public/js/compiled/out/app"
                            :pretty-print true
                            :source-map-timestamp true}}
-               {:id "renderer-min"
+               {:id "app-min"
                 :source-paths ["src/cljs"]
                 :compiler {:output-to "resources/public/js/compiled/app.min.js"
-                           :main forge.renderer
+                           :main forge.main
                            :optimizations :simple
                            :pretty-print false}}]}
   :figwheel {;; :http-server-root "public"

@@ -26,12 +26,12 @@
                            :pretty-print true
                            :source-map-timestamp true}}
                {:id "renderer-min"
-                :source-paths ["src/renderer" "src/common"]
+                :source-paths ["src/renderer"]
                 :compiler {:output-to "resources/public/js/compiled/renderer.js"
                            :main forge.renderer
                            :optimizations :simple
                            :pretty-print false}}]}
-  :figwheel {;; :http-server-root "public" ;; default and assumes "resources"
+  :figwheel {;; :http-server-root "public"
              ;; :server-port 3449 ;; default
              ;; :server-ip "127.0.0.1"
              :css-dirs ["resources/public/css"]}) ;; watch and update CSS

@@ -24,7 +24,6 @@
                            :asset-path "js/compiled/out/tests"
                            :output-to "resources/public/js/compiled/tests.js"
                            :output-dir "resources/public/js/compiled/out/tests"
-                           :target :nodejs
                            :pretty-print true
                            :source-map-timestamp true}}
                {:id "app-dev"

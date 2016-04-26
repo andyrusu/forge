@@ -5,5 +5,8 @@
   "window": {
     "id": "main",
     "title": "Forge Main Window"
+  },
+  "devDependencies": {
+    "karma": "^0.13.22"
   }
 }

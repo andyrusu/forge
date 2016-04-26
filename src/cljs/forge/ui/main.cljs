@@ -1,12 +1,7 @@
-(ns forge.ui.window
-  (:import goog.dom.ViewportSizeMonitor
-           goog.events.EventType)
+(ns forge.ui.main
   (:require [om.core :as om :include-macros true]
             [om.dom :as dom :include-macros true]
-            [om-bootstrap.input :as i]
-            [goog.events :as e]))
-
-(def vsm (ViewportSizeMonitor.))
+            [om-bootstrap.input :as i]))
 
 (defn search-input
   [data owner]
